@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@EqualsAndHashCode(of = "rno")
+@EqualsAndHashCode(of = "idx")
 @ToString
 public class MemberRole {
     @Id

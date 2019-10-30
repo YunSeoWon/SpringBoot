@@ -1,7 +1,5 @@
 package com.board.boardweb.domain;
 
-
-import com.board.boardweb.domain.enums.RoleType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -49,11 +48,10 @@ public class Member {
         this.email = email;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
+        this.roles = new ArrayList<MemberRole>();
     }
 
-    public boolean isAdmin() {
-        for(MemberRole r : roles)
-            if(r.getRoleType() == RoleType.admin) return true;
-        return false;
+    public void addRole(MemberRole r) {
+        this.roles.add(r);
     }
 }

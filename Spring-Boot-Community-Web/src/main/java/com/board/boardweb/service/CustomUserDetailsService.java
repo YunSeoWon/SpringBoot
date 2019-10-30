@@ -3,7 +3,7 @@ package com.board.boardweb.service;
 import com.board.boardweb.domain.SecurityMember;
 import com.board.boardweb.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -26,7 +26,7 @@ public class CustomUserDetailsService implements UserDetailsService  {
     MemberRepository memberRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException, NoSuchElementException {
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException, InternalAuthenticationServiceException {
         System.out.println(email);
         return Optional.ofNullable(memberRepository.findByEmail(email))
                 .filter(m -> m != null)

@@ -18,11 +18,17 @@ public class BoardController {
     @Autowired
     private BoardService boardService;
 
-    @GetMapping("board/")
+    @GetMapping("board")
     public String board(@RequestParam(value = "idx", defaultValue = "0") Long idx, Model model) {
         model.addAttribute("board", boardService.findBoardByIdx(idx));
         return "board/form";
     }
+
+    @GetMapping("board/form")
+    public String board() {
+        return "board/form";
+    }
+
 
     @GetMapping({"", "board/list"})
     public String list(@PageableDefault Pageable pageable, Model model) {

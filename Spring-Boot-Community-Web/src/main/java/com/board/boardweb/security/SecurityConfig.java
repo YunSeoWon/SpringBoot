@@ -21,15 +21,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) {
-        web.ignoring().antMatchers("/css/**", "/script/**", "image/**", "/fonts/**", "lib/**");
+        web.ignoring().antMatchers("/css/**", "/script/**", "/images/**", "/fonts/**", "lib/**", "/js/**");
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception
     {
         http.authorizeRequests()
                 .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/**").permitAll()
-                .antMatchers("/board/**").authenticated()
+                .antMatchers("/member/join", "/member/login", "/member/create").permitAll()
+                .antMatchers("/board/form").hasRole("USER")
+                .antMatchers("/", "/board/list/**", "/board/**").permitAll()
+
+
                 .and().formLogin()
                 .loginPage("/member/login")
                 .loginProcessingUrl("/member/login")
@@ -38,6 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("email")
                 .passwordParameter("password")
                 .successHandler(successHandler())
+
                 .and()
                 .logout();
     }

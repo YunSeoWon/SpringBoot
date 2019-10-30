@@ -2,13 +2,16 @@ package com.board.boardweb;
 
 import com.board.boardweb.domain.Board;
 import com.board.boardweb.domain.Member;
+import com.board.boardweb.domain.MemberRole;
 import com.board.boardweb.domain.enums.BoardType;
+import com.board.boardweb.domain.enums.RoleType;
 import com.board.boardweb.repository.BoardRepository;
 import com.board.boardweb.repository.MemberRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 import java.time.LocalDateTime;
@@ -17,7 +20,12 @@ import java.util.stream.IntStream;
 @SpringBootApplication
 public class BoardWebApplication {
 
+    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
     public static void main(String[] args) {
+        RoleType roleType = RoleType.admin;
+        System.out.println(roleType);
+        System.out.println(roleType.getValue());
         SpringApplication.run(BoardWebApplication.class, args);
     }
 
@@ -30,12 +38,19 @@ public class BoardWebApplication {
     public CommandLineRunner runer(MemberRepository memberRepository,
                                    BoardRepository boardRepository) throws Exception {
         return (args) -> {
-            Member member = memberRepository.save(Member.builder()
-            .name("havi")
-            .password("test")
-            .email("havi@gmail.com")
-            .createdDate(LocalDateTime.now())
-            .build());
+            Member m = Member.builder()
+                    .name("aa")
+                    .password(passwordEncoder.encode("test"))
+                    .email("aa@aa")
+                    .createdDate(LocalDateTime.now())
+                    .build();
+            MemberRole r = new MemberRole();
+            r.setRoleType(RoleType.user);
+            m.addRole(r);
+            Member member = memberRepository.save(m);
+
+
+
 
             IntStream.rangeClosed(1, 200).forEach(index ->
                     boardRepository.save(Board.builder()
