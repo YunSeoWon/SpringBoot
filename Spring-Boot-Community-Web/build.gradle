@@ -26,7 +26,15 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    // for Security
+    compile 'org.springframework.boot:spring-boot-starter-security:2.0.7.RELEASE'
+    compile 'org.thymleaf.extras:thymleaf-extras-springsecurity4'
+    compile 'org.springframework.security.oauth:spring-security-oauth2:2.3.5.RELEASE'
+    compile 'org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.1.3.RELEASE'
+
+
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'

@@ -38,17 +38,17 @@ public class Board {
     private LocalDateTime updatedDate;
 
     @OneToOne(fetch = FetchType.LAZY)
-    private User user;
+    private Member member;
 
     @Builder
     public Board(String title, String subTitle, String content, BoardType boardType,
-                 LocalDateTime createdDate, LocalDateTime updatedDate, User user) {
+                 LocalDateTime createdDate, LocalDateTime updatedDate, Member member) {
         this.title = title;
         this.subTitle = subTitle;
         this.content = content;
         this.boardType = boardType;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
-        this.user = user;
+        this.member = member;
     }
 }

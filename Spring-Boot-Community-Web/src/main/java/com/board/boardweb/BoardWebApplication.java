@@ -1,10 +1,10 @@
 package com.board.boardweb;
 
 import com.board.boardweb.domain.Board;
-import com.board.boardweb.domain.User;
+import com.board.boardweb.domain.Member;
 import com.board.boardweb.domain.enums.BoardType;
 import com.board.boardweb.repository.BoardRepository;
-import com.board.boardweb.repository.UserRepository;
+import com.board.boardweb.repository.MemberRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -27,10 +27,10 @@ public class BoardWebApplication {
      */
 
     @Bean
-    public CommandLineRunner runer(UserRepository userRepository,
+    public CommandLineRunner runer(MemberRepository memberRepository,
                                    BoardRepository boardRepository) throws Exception {
         return (args) -> {
-            User user = userRepository.save(User.builder()
+            Member member = memberRepository.save(Member.builder()
             .name("havi")
             .password("test")
             .email("havi@gmail.com")
@@ -45,7 +45,7 @@ public class BoardWebApplication {
                     .boardType(BoardType.free)
                     .createdDate(LocalDateTime.now())
                     .updatedDate(LocalDateTime.now())
-                    .user(user)
+                    .member(member)
                     .build()));
 
         };

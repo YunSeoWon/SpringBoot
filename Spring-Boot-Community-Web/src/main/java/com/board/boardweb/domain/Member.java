@@ -1,18 +1,22 @@
 package com.board.boardweb.domain;
 
 
+import com.board.boardweb.domain.enums.RoleType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @Entity
 @Table
-public class User {
+public class Member {
 
     @Id
     @Column
@@ -34,12 +38,22 @@ public class User {
     @Column
     private LocalDateTime updatedDate;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name="idx")
+    private List<MemberRole> roles;
+
     @Builder
-    public User(String name, String password, String email, LocalDateTime createdDate, LocalDateTime updatedDate) {
+    public Member(String name, String password, String email, LocalDateTime createdDate, LocalDateTime updatedDate) {
         this.name = name;
         this.password = password;
         this.email = email;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
+    }
+
+    public boolean isAdmin() {
+        for(MemberRole r : roles)
+            if(r.getRoleType() == RoleType.admin) return true;
+        return false;
     }
 }

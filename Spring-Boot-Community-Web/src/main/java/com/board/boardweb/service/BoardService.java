@@ -9,6 +9,13 @@ import org.springframework.stereotype.Service;
 
 
 
+/*
+  Board와 관련된 비즈니스 로직을 구현함.
+  구현 부분
+    - Board의 리스트를 page 단위로 반환
+    - Board 갹체를 id를 이용하여 찾아 반환
+ */
+
 @Service
 public class BoardService {
     private final BoardRepository boardRepository;
